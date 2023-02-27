@@ -1,2 +1,3 @@
 /models/__pycache__
+/tests/test_models/__pycache__
 test_base_model.py
