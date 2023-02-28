@@ -35,5 +35,5 @@ class FileStorage():
                 self.__objects = {}
                 for key, value in json_data.items():
                     self.__objects[key] = BaseModel(**value)
-        except Exception:
-            pass
+        except (FileNotFoundError, FileExistsError) as e:
+            e.args("This file doesn't exist")
