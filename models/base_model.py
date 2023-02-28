@@ -34,7 +34,7 @@ class BaseModel:
         if kwargs:
             for key, value in kwargs.items():
                 if key in ['created_at', 'updated_at']:
-                    self.__dict__[key] = datetime.fromisoformat(value)
+                    setattr(self, key, datetime.fromisoformat(value))
                 elif key != '__class__':
                     # Everything will be added as an attribute except the class
                     setattr(self, key, value)
