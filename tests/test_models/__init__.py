@@ -1,3 +1,0 @@
-"""
-Test's Package
-"""

@@ -1,3 +1,7 @@
+.gitignore
 /models/__pycache__
-/tests/test_models/__pycache__
-test_base_model.py
+/models/engine/__pycache__
+/tests/__pycache__
+/main_test
+file.json
+

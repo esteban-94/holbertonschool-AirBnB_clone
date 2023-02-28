@@ -20,6 +20,7 @@ class BaseModel:
     """
 
     def __init__(self, *args, **kwargs) -> None:
+        from models import storage
         """
         This method is called when an instance of the class is created.
         It initializes the instance's attributes id, created_at, and updated_at
@@ -42,6 +43,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self) -> str:
         """
@@ -51,12 +53,14 @@ class BaseModel:
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self) -> None:
+        from models import storage
         """
         This method updates the updated_at attribute to the current date
         and time using the datetime.now() method. It can be used to indicate
         that an instance has been modified and needs to be saved.
         """
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self) -> dict:
         """
