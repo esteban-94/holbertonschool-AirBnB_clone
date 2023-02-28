@@ -31,9 +31,17 @@ class BaseModel:
                                    using the datetime.now() method.
         """
 
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key in ['created_at', 'updated_at']:
+                    t_format = '%Y-%m-%dT%H:%M:%S.%f'
+                    self.__dict__[key] = datetime.strptime(value, t_format)
+                elif key != '__class__':
+                    self.__dict__[key] = value
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self) -> str:
         """
