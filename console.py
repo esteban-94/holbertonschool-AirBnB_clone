@@ -19,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             return options
 
-    def default(self, line: str) -> str:
+    def default(self, line: str) -> None:
         print(f"Command '{line}' not found, please type help to display the commands availables")
 
 if __name__ == '__main__':
