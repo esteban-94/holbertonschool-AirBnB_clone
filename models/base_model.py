@@ -34,10 +34,10 @@ class BaseModel:
         if kwargs:
             for key, value in kwargs.items():
                 if key in ['created_at', 'updated_at']:
-                    t_format = '%Y-%m-%dT%H:%M:%S.%f'
-                    self.__dict__[key] = datetime.strptime(value, t_format)
+                    self.__dict__[key] = datetime.fromisoformat(value)
                 elif key != '__class__':
-                    self.__dict__[key] = value
+                    # Everything will be added as an attribute except the class
+                    setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -66,8 +66,11 @@ class BaseModel:
         The created_at and updated_at attributes are formatted as ISO 8601
         strings using the datetime.isoformat() method.
         """
-        dict_copy = self.__dict__.copy()
-        dict_copy['__class__'] = self.__class__.__name__
-        dict_copy['created_at'] = self.created_at.isoformat()
-        dict_copy['updated_at'] = self.updated_at.isoformat()
-        return dict_copy
+        data = {}
+        for key, value in self.__dict__.items():
+            if key in ['created_at', 'updated_at']:
+                data[key] = value.isoformat()
+            else:
+                data[key] = value
+        data['__class__'] = self.__class__.__name__
+        return data
