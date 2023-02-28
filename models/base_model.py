@@ -10,6 +10,7 @@ Module Attributes:
 """
 import uuid
 from datetime import datetime
+import models
 
 
 class BaseModel:
@@ -42,6 +43,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self) -> str:
         """
@@ -57,6 +59,7 @@ class BaseModel:
         that an instance has been modified and needs to be saved.
         """
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self) -> dict:
         """
