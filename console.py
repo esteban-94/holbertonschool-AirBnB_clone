@@ -50,7 +50,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
 
-        model = all_data.get(f"{args[0]}.{args[1]}", {})
+        model = all_data.get(f"{class_name}.{instance_id}", {})
         
         if model == {}:
             print("** no instance found **")
