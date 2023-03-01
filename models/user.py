@@ -24,8 +24,8 @@ class User(BaseModel):
     - id: str - a unique identifier generated using the uuid.uuid4() method.
     - created_at: datetime - the date and time when the instance was created,
                   set using the datetime.now() method.
-    - updated_at: datetime - the date and time when the instance was last updated,
-                  set using the datetime.now() method.
+    - updated_at: datetime - the date and time when the instance was
+                  last updated, set using the datetime.now() method.
     - email: str - the email address of the user.
     - password: str - the password of the user.
     - first_name: str - the first name of the user.
@@ -44,9 +44,10 @@ class User(BaseModel):
 
     - to_dict() -> dict
         This method returns a dictionary representation of the instance.
-        The dictionary includes all of the instance's attributes, as well as the class name,
-        created_at, and updated_at attributes. The created_at and updated_at attributes are
-        formatted as ISO 8601 strings using the datetime.isoformat() method.
+        The dictionary includes all of the instance's attributes,
+        as well as the class name, created_at, and updated_at attributes.
+        The created_at and updated_at attributes are formatted as ISO 8601
+        strings using the datetime.isoformat() method.
     """
     email = ""
     password = ""

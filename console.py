@@ -130,7 +130,6 @@ class HBNBCommand(cmd.Cmd):
 
         print(objects)
 
-
     def do_destroy(self, args: str) -> None:
         """Delete an instance based on the class name and ID.
 
