@@ -214,13 +214,12 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        if arg_list[2] in ["id", "created_at", "updated_at"]:
+        attribute_name = arg_list[2]
+        attribute_value = arg_list[3]
+
+        if attribute_name in ["id", "created_at", "updated_at"]:
             print("** this attribute can't be change **")
             return
-        else:
-            attribute_name = arg_list[2]
-            attribute_value = arg_list[3]
-            setattr(instance, attribute_name, attribute_value)
 
         setattr(instance, attribute_name, attribute_value)
 
