@@ -19,8 +19,9 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, args: str) -> None:
+        # Desestructuring the args
         class_name, *_ = args.split()
-        new_instance = None
+
         # Vallidation
         if not class_name:
             print("** class name missiong **")
@@ -29,6 +30,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
+        # Process
         for number, class_to_create in enumerate(class_names_str):
             if args == class_to_create:
                 new_instance = class_names[number]()
@@ -37,9 +39,10 @@ class HBNBCommand(cmd.Cmd):
         print(new_instance.id)
 
     def do_show(self, args: str) -> None:
-        # Vallidations
+        # Desestructuring the args
         class_name, instance_id, *_ = args.split()
 
+        # Vallidations
         if not class_name:
             print("** class name missing **")
             return
@@ -50,6 +53,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
 
+        # Process
         model = all_data.get(f"{class_name}.{instance_id}", {})
         
         if model == {}:
@@ -59,12 +63,16 @@ class HBNBCommand(cmd.Cmd):
         print(model)
 
     def do_all(self, args: str) -> None:
-        # Vallidations
-        if not args in class_names_str and args != "":
+        # Desestructuring the args
+        class_name, *_ = args.split()
+
+        # Validation
+        if class_name and class_name not in class_names_str:
             print("** class doesn't exist **")
             return
 
-        objects = [str(obj) for obj in all_data.values()
+        # Process
+        objects = [str(obj) for obj in all_data.values() # if only write all
                    if args == "" or str(obj).startswith(f"[{args}]")]
 
         print(objects)
