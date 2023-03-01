@@ -19,16 +19,38 @@ from os import path
 
 
 class FileStorage():
+    """
+    This class is responsible for storing and retrieving
+    objects from a JSON file.
+
+    Attributes:
+
+    __file_path: str - a private class attribute representing
+                 the path to the JSON file.
+    __objects: dict - a private class attribute representing
+               the objects stored in the JSON file.
+    """
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
+        """
+        This method returns a dictionary containing all of
+        the objects stored in the JSON file.
+        """
         return self.__objects
 
     def new(self, obj):
+        """
+        This method adds a new object to the dictionary of
+        objects stored in the JSON file.
+        """
         self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
 
     def save(self):
+        """
+        This method saves the dictionary of objects to the JSON file.
+        """
         objects_dict = {}
         for key, value in self.__objects.items():
             objects_dict[key] = value.to_dict()
@@ -36,6 +58,9 @@ class FileStorage():
             json.dump(objects_dict, fl, indent=4)
 
     def reload(self):
+        """
+        This method loads the dictionary of objects from the JSON file.
+        """
         if path.exists(self.__file_path):
             with open(self.__file_path, "r", encoding='utf-8') as fl:
                 json_data = json.load(fl)
