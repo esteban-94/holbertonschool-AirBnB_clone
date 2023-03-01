@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
         lenght = len(args)
 
         if args[0] == "":
-            print("** class name missiong **")
+            print("** class name missing **")
             return
         if not args[0] in class_names_str:
             print("** class doesn't exist **")
@@ -59,11 +59,15 @@ class HBNBCommand(cmd.Cmd):
         if new_dictionary == {}:
             print("** no instance found **")
             return
-
-        print(new_dictionary)
+        else:
+            model = storage.all()[f"{args[0]}.{args[1]}"]
+            print(model)
+        
 
     def do_all(self, args):
-        print(storage.all())
+        for obj in storage.all():
+            print(storage.all()[obj].__str__())
+        return
     
     def complete_add(self, text, line, start_index, end_index) -> str:
         options = ['quit', 'help']
