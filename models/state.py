@@ -1,10 +1,14 @@
 #!/usr/bin/python3
 """
-Module Name: state
+Module Name:
+state
+
 Module Description:
 This module contains only one class
+
 Module Classes:
 - State
+
 Module Attributes:
 - None
 """

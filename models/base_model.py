@@ -1,10 +1,14 @@
 #!/usr/bin/python3
 """
-Module Name: base_model
+Module Name:
+base_model
+
 Module Description:
 This module contains only one Class
+
 Module Classes:
 - BaseModel
+
 Module Attributes:
 - None
 """

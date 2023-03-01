@@ -1,10 +1,14 @@
 #!/usr/bin/python3
 """
-Module Name: file_storage
+Module Name:
+file_storage
+
 Module Description:
 This module contains only one Class
+
 Module Classes:
 - FileStorage
+
 Module Attributes:
 - None
 """

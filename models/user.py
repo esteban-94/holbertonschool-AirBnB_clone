@@ -1,10 +1,14 @@
 #!/usr/bin/python3
 """
-Module Name: user
+Module Name:
+user
+
 Module Description:
 This module contains only one class
+
 Module Classes:
 - User
+
 Module Attributes:
 - None
 """

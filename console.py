@@ -1,10 +1,14 @@
 #!/usr/bin/python3
 """
-Module Name: console
+Module Name:
+console
+
 Module Description:
 This module contains only one Class
+
 Module Classes:
 - HBNBCommand
+
 Module Attributes:
 - None
 """
