@@ -1,7 +1,13 @@
 #!/usr/bin/python3
-"""Module file_storage"""
-
-
+"""
+Module Name: file_storage.py
+Module Description:
+This module contains only one Class
+Module Classes:
+- FileStorage
+Module Attributes:
+- None
+"""
 import json
 from models.base_model import BaseModel
 from models.user import User
