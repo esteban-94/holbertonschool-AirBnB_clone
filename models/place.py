@@ -14,20 +14,35 @@ Module Attributes:
 from models.base_model import BaseModel
 
 class Place(BaseModel):
-    """Represent a place.
+    """
+    The Place class is a Python class that inherits from the BaseModel class.
 
     Attributes:
-        city_id (str): The City id.
-        user_id (str): The User id.
-        name (str): The name of the place.
-        description (str): The description of the place.
-        number_rooms (int): The number of rooms of the place.
-        number_bathrooms (int): The number of bathrooms of the place.
-        max_guest (int): The maximum number of guests of the place.
-        price_by_night (int): The price by night of the place.
-        latitude (float): The latitude of the place.
-        longitude (float): The longitude of the place.
-        amenity_ids (list): A list of Amenity ids.
+    - city_id: a string representing the id of the City
+               instance in which the place is located.
+    - user_id: a string representing the id of the User
+               instance that owns the place.
+    - name: a string representing the name of the place.
+    - description: a string representing the description of the place.
+    - number_rooms: an integer representing the number of rooms in the place.
+    - number_bathrooms: an integer representing the number of bathrooms in the place.
+    - max_guest: an integer representing the maximum number
+                 of guests the place can accommodate.
+    - price_by_night: an integer representing the price per
+                      night to stay at the place.
+    - latitude: a float representing the latitude of the place's location.
+    - longitude: a float representing the longitude of the place's location.
+    - amenity_ids: a list of strings representing the ids of the Amenity
+                   instances that are associated with the place.
+    
+    Methods:
+    - __init__(self, *args, kwargs) -> None
+        Constructor method that initializes the attributes of the class.
+        Calls the constructor of the parent class BaseModel and creates the Place instance.
+    - __str__() -> str
+        Method that returns a string representation of the instance.
+    - to_dict() -> dict
+        Method that returns a dictionary representation of the instance.
     """
 
     city_id = ""
