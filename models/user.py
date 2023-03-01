@@ -16,6 +16,10 @@ class User(base_model.BaseModel):
     """
     The User class is a Python class
     """
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""
     def __init__(self, *args, **kwargs) -> None:
         from models import storage
         """
