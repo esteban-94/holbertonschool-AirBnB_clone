@@ -55,6 +55,7 @@ class HBNBCommand(cmd.Cmd):
         Returns:
             bool: True to exit the program.
         """
+        print()
         return True
 
     def do_create(self, args: str) -> None:
