@@ -5,6 +5,7 @@ from models import storage
 
 class_names = [BaseModel]
 class_names_str = ["BaseModel"]
+all_data = storage.all()
 
 class HBNBCommand(cmd.Cmd):
 
@@ -17,13 +18,14 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, args: str) -> bool:
         return True
 
-    def do_create(self, args: str) -> str:
+    def do_create(self, args: str) -> None:
+        class_name, *_ = args.split()
         new_instance = None
         # Vallidation
-        if args == "":
+        if not class_name:
             print("** class name missiong **")
             return
-        if not args in class_names_str:
+        if not class_name in class_names_str:
             print("** class doesn't exist **")
             return
 
@@ -34,22 +36,19 @@ class HBNBCommand(cmd.Cmd):
         new_instance.save()
         print(new_instance.id)
 
-    def do_show(self, args: str):
+    def do_show(self, args: str) -> None:
         # Vallidations
-        args = args.split(' ')
-        lenght = len(args)
+        class_name, instance_id, *_ = args.split()
 
-        if args[0] == "":
+        if not class_name:
             print("** class name missing **")
             return
-        if not args[0] in class_names_str:
+        if not class_name in class_names_str:
             print("** class doesn't exist **")
             return
-        if lenght == 1:
+        if not instance_id:
             print("** instance id missing **")
             return
-
-        all_data = storage.all()
 
         model = all_data.get(f"{args[0]}.{args[1]}", {})
         
@@ -59,11 +58,18 @@ class HBNBCommand(cmd.Cmd):
 
         print(model)
 
+    def do_all(self, args: str) -> None:
+        # Vallidations
+        if not args in class_names_str and args != "":
+            print("** class doesn't exist **")
+            return
 
-    def do_all(self, args):
-        for obj in storage.all():
-            print(storage.all()[obj].__str__())
-    
+        objects = [str(obj) for obj in all_data.values()
+                   if args == "" or str(obj).startswith(f"[{args}]")]
+
+        print(objects)
+
+
     def complete_add(self, text, line, start_index, end_index) -> str:
         options = ['quit', 'help']
         if text:
