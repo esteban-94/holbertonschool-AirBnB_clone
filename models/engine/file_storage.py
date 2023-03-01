@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Module Name: file_storage.py
+Module Name: file_storage
 Module Description:
 This module contains only one Class
 Module Classes:
@@ -10,7 +10,6 @@ Module Attributes:
 """
 import json
 from models.base_model import BaseModel
-from models.user import User
 from os import path
 
 
