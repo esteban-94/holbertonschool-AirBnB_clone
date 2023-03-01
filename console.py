@@ -199,6 +199,14 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
+        if len(arg_list) < 3:
+            print("** attribute name missing **")
+            return
+
+        if len(arg_list) < 4:
+            print("** value missing **")
+            return
+
         attribute_name = arg_list[2]
         attribute_value = arg_list[3]
 
