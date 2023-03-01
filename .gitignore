@@ -4,4 +4,5 @@
 /tests/__pycache__
 /main_test
 file.json
+test_save_reload_user.py
 
