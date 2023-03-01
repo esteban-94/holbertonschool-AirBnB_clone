@@ -214,8 +214,8 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        if arg_list[2] == "id" or arg_list[2] == "created_at" or arg_list[2] == "updated_at":
-            print("** this attribute can't change **")
+        if arg_list[2] in ["id", "created_at", "updated_at"]:
+            print("** this attribute can't be change **")
             return
         else:
             attribute_name = arg_list[2]
