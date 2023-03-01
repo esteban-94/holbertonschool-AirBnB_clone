@@ -50,24 +50,19 @@ class HBNBCommand(cmd.Cmd):
             return
 
         all_data = storage.all()
-        new_dictionary = {}
 
-        for key, value in all_data.items():
-            if key.startswith(f"{args[0]}.{args[1]}"):
-                new_dictionary[key] = value
+        model = all_data.get(f"{args[0]}.{args[1]}", {})
         
-        if new_dictionary == {}:
+        if model == {}:
             print("** no instance found **")
             return
-        else:
-            model = storage.all()[f"{args[0]}.{args[1]}"]
-            print(model)
-        
+
+        print(model)
+
 
     def do_all(self, args):
         for obj in storage.all():
             print(storage.all()[obj].__str__())
-        return
     
     def complete_add(self, text, line, start_index, end_index) -> str:
         options = ['quit', 'help']
