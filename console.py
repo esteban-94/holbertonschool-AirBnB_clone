@@ -14,10 +14,18 @@ Module Attributes:
 """
 import cmd
 from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 from models import storage
 
-class_names = [BaseModel]
-class_names_str = ["BaseModel"]
+class_names = [BaseModel, User, Place, State,
+                 City, Amenity, Review]
+class_names_str = ["BaseModel", "User", "Place", "State",
+                 "City", "Amenity", "Review"]
 all_data = storage.all()
 
 
@@ -206,8 +214,13 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        attribute_name = arg_list[2]
-        attribute_value = arg_list[3]
+        if arg_list[2] == "id" or arg_list[2] == "created_at" or arg_list[2] == "updated_at":
+            print("** this attribute can't change **")
+            return
+        else:
+            attribute_name = arg_list[2]
+            attribute_value = arg_list[3]
+            setattr(instance, attribute_name, attribute_value)
 
         setattr(instance, attribute_name, attribute_value)
 
