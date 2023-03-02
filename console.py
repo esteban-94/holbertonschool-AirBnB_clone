@@ -22,8 +22,6 @@ from models.amenity import Amenity
 from models.review import Review
 from models import storage
 
-class_names = [BaseModel, User, Place, State,
-                 City, Amenity, Review]
 class_names_str = ["BaseModel", "User", "Place", "State",
                  "City", "Amenity", "Review"]
 all_data = storage.all()
@@ -77,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         # Process
-        new_instance = class_names[class_names_str.index(class_name)]()
+        new_instance = eval(class_name)()
 
         new_instance.save()
         print(new_instance.id)
