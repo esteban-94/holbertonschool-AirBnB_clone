@@ -55,7 +55,6 @@ class HBNBCommand(cmd.Cmd):
         Returns:
             bool: True to exit the program.
         """
-        print()
         return True
 
     def do_create(self, args: str) -> None:
@@ -256,6 +255,12 @@ class HBNBCommand(cmd.Cmd):
         print_string = f"Command '{line}' not found, "
         print_string += f"please type help to display the commands availables"
         print(print_string)
+
+    def emptyline(self) -> None:
+        """
+        Handle empty lines
+        """
+        pass
 
 
 if __name__ == '__main__':
