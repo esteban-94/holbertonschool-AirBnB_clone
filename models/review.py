@@ -45,7 +45,6 @@ class Review(BaseModel):
         The created_at and updated_at attributes are formatted as ISO 8601
         strings using the datetime.isoformat() method.
     """
-
     place_id = ""
     user_id = ""
     text = ""
