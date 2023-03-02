@@ -32,7 +32,7 @@ all_data = storage.all()
 class HBNBCommand(cmd.Cmd):
     """Command-line interface for the AIRBNB project."""
 
-    intro = "Welcome to the AIRBNB console command"
+    #intro = "Welcome to the AIRBNB console command"
     prompt = "(hbnb) "
 
     def do_quit(self, args: str) -> bool:
