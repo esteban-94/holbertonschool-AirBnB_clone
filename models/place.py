@@ -47,7 +47,6 @@ class Place(BaseModel):
     - to_dict() -> dict
         Method that returns a dictionary representation of the instance.
     """
-
     city_id = ""
     user_id = ""
     name = ""
