@@ -13,7 +13,6 @@ Module Attributes:
 - None
 """
 from models.base_model import BaseModel
-from datetime import datetime
 
 
 class User(BaseModel):
