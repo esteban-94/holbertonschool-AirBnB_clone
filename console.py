@@ -140,9 +140,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
+        class_name = arg_list[0]
+
         # Process
         objects = [str(obj) for obj in all_data.values()  # if only write all
-                   if args == "" or str(obj).startswith(f"[{args}]")]
+                   if args == "" or str(obj).startswith(f"[{class_name}]")]
 
         print(objects)
 
@@ -225,7 +227,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         attribute_name = arg_list[2]
-        attribute_value = arg_list[3]
+        attribute_value = eval(arg_list[3])
 
         if attribute_name in ["id", "created_at", "updated_at"]:
             print("** this attribute can't be change **")
@@ -309,9 +311,13 @@ class HBNBCommand(cmd.Cmd):
             The specific method, and the args passed
         """
         # Parse the arguments
-        method = arguments.split('(')[0].strip('.')
-        raw_args = arguments.split('(')[1].strip(')')
-        args = (raw_args.replace('",', '')).replace('"', '')
+        try:
+            method = arguments.split('(')[0].strip('.')
+            raw_args = arguments.split('(')[1].strip(')')
+            args = (raw_args.replace(',', '')).replace('"', '')
+        except Exception:
+            print("Syntax Error")
+            return
 
         # Finding the function where was called
         # gets information about the framework of the above function
@@ -343,7 +349,10 @@ class HBNBCommand(cmd.Cmd):
         Returns:
             None
         """
-        eval("self.do_{}".format(method))(internal_args)
+        try:
+            eval("self.do_{}".format(method))(internal_args)
+        except Exception:
+            print("Be sure that the argument is valid")
 
     def do_BaseModel(self, arguments: str) -> None:
         """
