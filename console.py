@@ -226,6 +226,22 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
+        is_dict = False
+        for i in args:
+            if i == '{':
+                is_dict = True
+
+        if is_dict:
+            dicty = "".join(arg_list[2:])
+            dictionary = eval(dicty)
+
+            if (isinstance(dictionary, dict)):
+                for key, value in dictionary.items():
+                    setattr(instance, key, value)
+
+                instance.save()
+                return
+
         attribute_name = arg_list[2]
         attribute_value = eval(arg_list[3])
 
@@ -250,7 +266,10 @@ class HBNBCommand(cmd.Cmd):
         Returns:
             str: A list of possible completions.
         """
-        options = ['quit', 'help', 'all', 'show', 'destroy', 'update']
+        options = [
+            'quit', 'help', 'all', 'show', 'destroy', 'update', 'BaseModel',
+            'User', 'Place', 'State', 'City', 'Amenity', 'Review'
+            ]
         if text:
             return [option for option in options if option.startswith(text)]
         else:
@@ -314,9 +333,20 @@ class HBNBCommand(cmd.Cmd):
         try:
             method = arguments.split('(')[0].strip('.')
             raw_args = arguments.split('(')[1].strip(')')
-            args = (raw_args.replace(',', '')).replace('"', '')
-        except Exception:
+            is_dict = False
+            for i in raw_args:
+                if i == '{':
+                    is_dict = True
+            if is_dict:
+                line_parse = raw_args.split('{')
+                args = line_parse[0].replace('"', '').replace(",", "")
+                dict = "{" + line_parse[1]
+                args = f"{args} {dict}"
+            else:
+                args = (raw_args.replace(',', '')).replace('"', '')
+        except Exception as e:
             print("Syntax Error")
+            print("Error: ", e)
             return
 
         # Finding the function where was called
