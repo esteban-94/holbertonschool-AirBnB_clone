@@ -21,20 +21,26 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 from models import storage
+from typing import Tuple, Optional
+import inspect
 
-class_names_str = ["BaseModel", "User", "Place", "State",
-                 "City", "Amenity", "Review"]
+
+class_names_str = [
+    "BaseModel", "User", "Place", "State",
+    "City", "Amenity", "Review"
+    ]
 all_data = storage.all()
 
 
 class HBNBCommand(cmd.Cmd):
     """Command-line interface for the AIRBNB project."""
 
-    #intro = "Welcome to the AIRBNB console command"
+    # intro = "Welcome to the AIRBNB console command"
     prompt = "(hbnb) "
 
     def do_quit(self, args: str) -> bool:
-        """Quit command to exit the program.
+        """
+        Quit command to exit the program.
 
         Args:
             args (str): The arguments passed with the command.
@@ -45,7 +51,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, args: str) -> bool:
-        """Handle the end-of-file event (Ctrl+D).
+        """
+        Handle the end-of-file event (Ctrl+D).
 
         Args:
             args (str): The arguments passed with the command.
@@ -56,7 +63,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, args: str) -> None:
-        """Create a new instance of a given class.
+        """
+        Create a new instance of a given class.
 
         Args:
             args (str): The arguments passed with the command.
@@ -81,7 +89,8 @@ class HBNBCommand(cmd.Cmd):
         print(new_instance.id)
 
     def do_show(self, args: str) -> None:
-        """Show the string representation of an instance.
+        """
+        Show the string representation of an instance.
 
         Args:
             args (str): The arguments passed with the command.
@@ -115,8 +124,9 @@ class HBNBCommand(cmd.Cmd):
 
         print(model)
 
-    def do_all(self, args: str) -> None:
-        """Show the string representation of all instances of a given class.
+    def do_all(self, args: Optional[str]) -> None:
+        """
+        Show the string representation of all instances of a given class.
 
         Args:
             args (str): The arguments passed with the command.
@@ -137,7 +147,8 @@ class HBNBCommand(cmd.Cmd):
         print(objects)
 
     def do_destroy(self, args: str) -> None:
-        """Delete an instance based on the class name and ID.
+        """
+        Delete an instance based on the class name and ID.
 
         Args:
             args (str): The arguments passed with the command.
@@ -172,7 +183,8 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_update(self, args: str) -> None:
-        """Update an instance based on the class name and ID.
+        """
+        Update an instance based on the class name and ID.
 
         Args:
             args (str): The arguments passed with the command.
@@ -223,8 +235,9 @@ class HBNBCommand(cmd.Cmd):
 
         instance.save()
 
-    def complete_add(self, text, line, start_index, end_index) -> str:
-        """Provide auto-completion for some commands.
+    def complete_add(self, text: str) -> str:
+        """
+        Provide auto-completion for some commands.
 
         Args:
             text (str): The current word being completed.
@@ -242,7 +255,8 @@ class HBNBCommand(cmd.Cmd):
             return options
 
     def default(self, line: str) -> None:
-        """Handle unknown commands.
+        """
+        Handle unknown commands.
 
         Args:
             line (str): The unknown command.
@@ -261,8 +275,15 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_count(self, args: str) -> None:
-        """ Retrieve the number of instances of a class.
-            """
+        """
+        Retrieve the number of instances of a class.
+
+        Args:
+            args (str): the class.
+
+        Returns:
+            None
+        """
         arg_list = args.split()
         if not arg_list:
             print("** class name missing **")
@@ -277,44 +298,158 @@ class HBNBCommand(cmd.Cmd):
                 class_count += 1
         print(class_count)
 
-    def do_BaseModel(self, arguments):
-        """ Retrieve an instance based on BaseModel.
-            """
+    def _parse_args(self, arguments: str) -> Tuple[str, str]:
+        """
+        Parse the line enter by the user.
+
+        Args:
+            arguments (str): the arguments enter by the user.
+
+        Returns:
+            The specific method, and the args passed
+        """
+        # Parse the arguments
         method = arguments.split('(')[0].strip('.')
         raw_args = arguments.split('(')[1].strip(')')
         args = (raw_args.replace('",', '')).replace('"', '')
+
+        # Finding the function where was called
+        # gets information about the framework of the above function
+        callerframerecord = inspect.stack()[1]
+        # gets the frame of the above function
+        frame = callerframerecord[0]
+        # gets information about the framework of the above function
+        info = inspect.getframeinfo(frame)
+
+        # assign the name of the above function
+        name_function = info.function.strip("do_")
+
+        # Obtaining the internal args
         if args != "":
-            internal_args = "BaseModel " + args
+            internal_args = f"{name_function} {args}"
         else:
-            internal_args = "BaseModel"
+            internal_args = f"{name_function}"
+
+        return (method, internal_args)
+
+    def _execute(self, method: str, internal_args: str) -> None:
+        """
+        Execute the command specified
+
+        Args:
+            method (str): the method to be executed.
+            internal_args (str): the arguments of its method
+
+        Returns:
+            None
+        """
         eval("self.do_{}".format(method))(internal_args)
 
-    def do_User(self, arguments):
-        """ Retrieve an instance based on User.
-            """
-        method = arguments.split('(')[0].strip('.')
-        raw_args = arguments.split('(')[1].strip(')')
-        args = (raw_args.replace('",', '')).replace('"', '')
-        if args != "":
-            internal_args = "User " + args
-        else:
-            internal_args = "User"
-        eval("self.do_{}".format(method))(internal_args)
+    def do_BaseModel(self, arguments: str) -> None:
+        """
+        Handle all methods of BaseModel that are enter in this way:
 
-    def do_Place(self, arguments):
-        """ Retrieve an instance based on Place.
-            """
-        method = arguments.split('(')[0].strip('.')
-        raw_args = arguments.split('(')[1].strip(')')
-        args = (raw_args.replace('",', '')).replace('"', '')
-        if args != "":
-            internal_args = "Place " + args
-        else:
-            internal_args = "Place"
-        eval("self.do_{}".format(method))(internal_args)
+        >>> BaseModel.method(args)
 
-        #### Hola, adalanté un poquito. Para las demás clases sería el mismo bloque de código, espero que puedas ayudarme con lo de las comillas 
-        #### en los argumentos y el mecanismo de qué hacer cuando hay argumentos en exceso
+        Args:
+            arguments (str): the arguments enter by the user.
+
+        Returns:
+            None
+        """
+        method, internal_args = self._parse_args(arguments)
+        self._execute(method, internal_args)
+
+    def do_User(self, arguments: str) -> None:
+        """
+        Handle all methods of User that are enter in this way:
+
+        >>> User.method(args)
+
+        Args:
+            arguments (str): the arguments enter by the user.
+
+        Returns:
+            None
+        """
+        method, internal_args = self._parse_args(arguments)
+        self._execute(method, internal_args)
+
+    def do_Place(self, arguments: str) -> None:
+        """
+        Handle all methods of Place that are enter in this way:
+
+        >>> Place.method(args)
+
+        Args:
+            arguments (str): the arguments enter by the user.
+
+        Returns:
+            None
+        """
+        method, internal_args = self._parse_args(arguments)
+        self._execute(method, internal_args)
+
+    def do_Amenity(self, arguments: str) -> None:
+        """
+        Handle all methods of Amenity that are enter in this way:
+
+        >>> Amenity.method(args)
+
+        Args:
+            arguments (str): the arguments enter by the user.
+
+        Returns:
+            None
+        """
+        method, internal_args = self._parse_args(arguments)
+        self._execute(method, internal_args)
+
+    def do_City(self, arguments: str) -> None:
+        """
+        Handle all methods of City that are enter in this way:
+
+        >>> City.method(args)
+
+        Args:
+            arguments (str): the arguments enter by the user.
+
+        Returns:
+            None
+        """
+        method, internal_args = self._parse_args(arguments)
+        self._execute(method, internal_args)
+
+    def do_Review(self, arguments: str) -> None:
+        """
+        Handle all methods of Review that are enter in this way:
+
+        >>> Review.method(args)
+
+        Args:
+            arguments (str): the arguments enter by the user.
+
+        Returns:
+            None
+        """
+        method, internal_args = self._parse_args(arguments)
+        self._execute(method, internal_args)
+
+    def do_State(self, arguments: str) -> None:
+        """
+        Handle all methods of State that are enter in this way:
+
+        >>> State.method(args)
+
+        Args:
+            arguments (str): the arguments enter by the user.
+
+        Returns:
+            None
+        """
+        method, internal_args = self._parse_args(arguments)
+        self._execute(method, internal_args)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
