@@ -260,6 +260,61 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
+    def do_count(self, args: str) -> None:
+        """ Retrieve the number of instances of a class.
+            """
+        arg_list = args.split()
+        if not arg_list:
+            print("** class name missing **")
+            return
+        if arg_list and arg_list[0] not in class_names_str:
+            print("** class doesn't exist **")
+            return
+        class_count = 0
+        for key in all_data.keys():
+            to_compare = key.split('.')[0]
+            if to_compare == arg_list[0]:
+                class_count += 1
+        print(class_count)
+
+    def do_BaseModel(self, arguments):
+        """ Retrieve an instance based on BaseModel.
+            """
+        method = arguments.split('(')[0].strip('.')
+        raw_args = arguments.split('(')[1].strip(')')
+        args = (raw_args.replace('",', '')).replace('"', '')
+        if args != "":
+            internal_args = "BaseModel " + args
+        else:
+            internal_args = "BaseModel"
+        eval("self.do_{}".format(method))(internal_args)
+
+    def do_User(self, arguments):
+        """ Retrieve an instance based on User.
+            """
+        method = arguments.split('(')[0].strip('.')
+        raw_args = arguments.split('(')[1].strip(')')
+        args = (raw_args.replace('",', '')).replace('"', '')
+        if args != "":
+            internal_args = "User " + args
+        else:
+            internal_args = "User"
+        eval("self.do_{}".format(method))(internal_args)
+
+    def do_Place(self, arguments):
+        """ Retrieve an instance based on Place.
+            """
+        method = arguments.split('(')[0].strip('.')
+        raw_args = arguments.split('(')[1].strip(')')
+        args = (raw_args.replace('",', '')).replace('"', '')
+        if args != "":
+            internal_args = "Place " + args
+        else:
+            internal_args = "Place"
+        eval("self.do_{}".format(method))(internal_args)
+
+        #### Hola, adalanté un poquito. Para las demás clases sería el mismo bloque de código, espero que puedas ayudarme con lo de las comillas 
+        #### en los argumentos y el mecanismo de qué hacer cuando hay argumentos en exceso
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
