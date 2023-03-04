@@ -335,17 +335,26 @@ class HBNBCommand(cmd.Cmd):
         try:
             method = arguments.split('(')[0].strip('.')
             raw_args = arguments.split('(')[1].strip(')')
+
             is_dict = False
             for i in raw_args:
                 if i == '{':
                     is_dict = True
             if is_dict:
                 line_parse = raw_args.split('{')
-                args = line_parse[0].replace('"', '').replace(",", "")
+                id_string = line_parse[0].replace('"', '').replace(",", "")
                 dict = "{" + line_parse[1]
-                args = f"{args} {dict}"
+                args = f"{id_string} {dict}"
             else:
-                args = (raw_args.replace(',', '')).replace('"', '')
+                ag_lt = raw_args.split(", ")
+                if len(ag_lt) == 3:
+                    if isinstance(eval(ag_lt[2]), int):
+                        args = (raw_args.replace(',', '')).replace('"', '')
+                    else:
+                        arg = (ag_lt[0] + " " + ag_lt[1]).replace('"', '')
+                        args = arg + " " + ag_lt[2]
+                else:
+                    args = (raw_args.replace(',', '')).replace('"', '')
         except Exception as e:
             print("Syntax Error")
             print("Error: ", e)
