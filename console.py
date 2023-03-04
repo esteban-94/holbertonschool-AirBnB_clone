@@ -139,8 +139,10 @@ class HBNBCommand(cmd.Cmd):
         if arg_list and arg_list[0] not in class_names_str:
             print("** class doesn't exist **")
             return
-
-        class_name = arg_list[0]
+        try:  # if only write all
+            class_name = arg_list[0]
+        except Exception:
+            pass
 
         # Process
         objects = [str(obj) for obj in all_data.values()  # if only write all
