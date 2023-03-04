@@ -68,3 +68,13 @@ class TestFileStorage(unittest.TestCase):
             os.remove(self.path)
         if os.path.exists("original_{}".format(self.path)):
             os.rename("original_{}".format(self.path), self.path)
+
+    def save(self):
+        """this method serialize a dict and
+        the write a in file .json
+        """
+        dic = {}
+        for k, v in FileStorage.__objects.items():
+            dic[k] = v.to_dict()
+        with open(FileStorage.__file_path, "w") as f:
+            json.dump(dic, f)
