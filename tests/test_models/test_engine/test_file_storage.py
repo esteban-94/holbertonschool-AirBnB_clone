@@ -163,6 +163,20 @@ class TestFileStorage_methods(unittest.TestCase):
         with self.assertRaises(TypeError):
             models.storage.reload(None)
 
+    def test_reload(self):
+        """Test reload"""
+        self.file_path = 'file.json'
+        self.obj1 = BaseModel()
+        self.obj1.save()
+        with open('file.json', 'r') as f:
+            data = json.load(f)
+            del data[f"{type(self.obj1).__name__}.{self.obj1.id}"]
+        with open('file.json', 'w') as f:
+            json.dump(data, f)
+        models.storage.reload()
+        objs = models.storage.all()
+        self.assertEqual(len(objs), 1)
+
 
 if __name__ == "__main__":
     unittest.main()
