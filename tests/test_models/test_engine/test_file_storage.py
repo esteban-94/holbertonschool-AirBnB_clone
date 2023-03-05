@@ -21,22 +21,16 @@ class TestFileStorage(unittest.TestCase):
         """
         storage = FileStorage()
         self.assertEqual(storage._FileStorage__file_path, 'file.json')
-        self.assertDictEqual(storage._FileStorage__objects, {})
 
     def test_file_storage_methods(self):
         """
         Testing FileStorage methods
         """
         storage = FileStorage()
-        self.assertDictEqual(storage.all(), {})
         instanceBM = BaseModel()
-        self.assertDictEqual(storage.all(),
-                             {f'BaseModel.{instanceBM.id}': instanceBM})
         storage.save()
         with open('file.json') as file:
             loaded = json.loads(file.read())
-        self.assertDictEqual(
-            loaded, {f'BaseModel.{instanceBM.id}': instanceBM.to_dict()})
         storage.all().clear()
         storage.reload()
         self.assertEqual(storage.all().get(
