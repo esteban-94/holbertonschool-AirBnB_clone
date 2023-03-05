@@ -66,12 +66,12 @@ class FileStorage():
         """
         This method loads the dictionary of objects from the JSON file.
         """
-        if path.exists(self.__file_path):
+        try:
             with open(self.__file_path, "r", encoding='utf-8') as fl:
                 json_data = json.load(fl)
                 for i in json_data.values():
                     class_name = i["__class__"]
                     del i["__class__"]
                     self.new(eval(class_name)(**i))
-        else:
-            pass
+        except FileNotFoundError:
+            return
