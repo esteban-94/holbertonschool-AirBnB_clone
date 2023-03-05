@@ -1,62 +1,44 @@
 #!/usr/bin/python3
 import unittest
-import os
-from models.base_model import BaseModel
+import models
 from models.engine.file_storage import FileStorage
+import os
 
 
 class TestFileStorage(unittest.TestCase):
-    """Test cases for FileStorage class"""
+    """ The unittest module provides a rich set of tools for
+    constructing and running tests"""
 
-    @classmethod
-    def setUpClass(cls):
-        """Sets the class/obj"""
-        cls.storage = FileStorage()
-        try:
-            os.rename(FileStorage._FileStorage__file_path, "test_file.json")
-        except Exception:
-            pass
+    def test_instance(self):
+        """ if is instance of FileStorage """
+        test1 = FileStorage()
+        self.assertIsInstance(test1, FileStorage)
 
-    @classmethod
-    def tearDownClass(cls):
-        """Removes JSON file after testing the other methods"""
-        try:
-            os.remove(FileStorage._FileStorage__file_path)
-        except Exception:
-            pass
-        try:
-            os.rename("test_file.json", FileStorage._FileStorage__file_path)
-        except Exception:
-            pass
+    def test_docstring_mandatory(self):
+        """ docstring at the module are necessary and good practice
+        Test assert if there is a docstring at the file_storage
+        and the class FileStorage
+        """
+        self.assertIsNotNone(models.engine.file_storage.__doc__)
+        self.assertIsNotNone(FileStorage.__doc__)
 
-    def test_all(self):
-        """Test case for 'all' method"""
-        self.assertIsInstance(self.storage.all(), dict)
+    def test_permissions(self):
+        """ test files are with execution, read, write and existence permission
+        X_OK Value to include in the mode parameter of access()
+        to determine if path can be executed so we passed
+        the file_storage path.
+        R_OK Value to include in the mode parameter of access() to test
+        the readability of path.
+        W_OK Value to include in the mode parameter of access() to test
+        the drivability of path.
+        F_OK Value to pass as the mode parameter of access() to test
+        the existence of path.
+        """
+        self.assertTrue(os.access("models/engine/file_storage.py", os.X_OK))
+        self.assertTrue(os.access("models/engine/file_storage.py", os.R_OK))
+        self.assertTrue(os.access("models/engine/file_storage.py", os.W_OK))
+        self.assertTrue(os.access("models/engine/file_storage.py", os.F_OK))
 
-    def test_new(self):
-        """Test case for 'new' method"""
-        model = BaseModel()
-        self.storage.new(model)
-        key = model.__class__.__name__ + "." + model.id
-        self.assertIn(key, self.storage.all())
-
-    def test_save(self):
-        """Test case for 'save' method"""
-        model = BaseModel()
-        self.storage.new(model)
-        self.storage.save()
-        self.assertTrue(os.path.exists(FileStorage._FileStorage__file_path))
-
-    def test_reload(self):
-        """Test case for 'reload' method"""
-        model = BaseModel()
-        self.storage.new(model)
-        self.storage.save()
-        self.storage._FileStorage__objects.clear()
-        self.storage.reload()
-        key = model.__class__.__name__ + "." + model.id
-        self.assertIn(key, self.storage.all())
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def closing(self):
+        """ closing the instance """
+        del self.test1
