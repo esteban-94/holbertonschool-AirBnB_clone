@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import unittest
 import os
 from models.base_model import BaseModel
