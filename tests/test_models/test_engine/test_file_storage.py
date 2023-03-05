@@ -5,6 +5,12 @@ import unittest
 
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 class TestFileStorage(unittest.TestCase):
@@ -54,12 +60,30 @@ class TestFileStorage(unittest.TestCase):
     def test_reload_method(self):
         """ Check the reload() method.
             """
-        base_model_test = BaseModel()
+        bm = BaseModel()
+        us = User()
+        st = State()
+        pl = Place()
+        cy = City()
+        am = Amenity()
+        rv = Review()
+        self.storage_test.new(bm)
+        self.storage_test.new(us)
+        self.storage_test.new(st)
+        self.storage_test.new(pl)
+        self.storage_test.new(cy)
+        self.storage_test.new(am)
+        self.storage_test.new(rv)
         self.storage_test.save()
         self.storage_test.reload()
-        key_to_search = "BaseModel.{}".format(base_model_test.id)
-        file_dict = self.storage_test.all()
-        self.assertFalse(file_dict[key_to_search] is base_model_test)
+        objs = FileStorage._FileStorage__objects
+        self.assertIn("BaseModel." + bm.id, objs)
+        self.assertIn("User." + us.id, objs)
+        self.assertIn("State." + st.id, objs)
+        self.assertIn("Place." + pl.id, objs)
+        self.assertIn("City." + cy.id, objs)
+        self.assertIn("Amenity." + am.id, objs)
+        self.assertIn("Review." + rv.id, objs)
 
     def tearDown(self):
         """ Method to leave each test
