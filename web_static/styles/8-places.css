@@ -1,12 +1,14 @@
 .places {
     margin-bottom: 60px;
 }
+
 .boxes {
     display: flex;
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
 }
+
 .places h1 {
     font-size: 30px;
     vertical-align: top;
