@@ -288,6 +288,11 @@ Alternatively, you can specify a single test file to run at a time:
 ```
 $ python3 unittest -m tests/test_console.py
 ```
+## Bugs
+If you find any bug, please, let us know.
+
+## Styling
+All files have been written in the [Pycodestyle](https://github.com/PyCQA/pycodestyle/issues/466).
 
 ## Authors
 * **Obed Rayo** <a href="https://github.com/ObedRav" rel="nofollow"><img align="center" alt="github" src="https://www.vectorlogo.zone/logos/github/github-tile.svg" height="24" /></a>
