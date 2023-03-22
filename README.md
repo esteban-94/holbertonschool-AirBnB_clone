@@ -294,10 +294,10 @@ Alternatively, you can specify a single test file to run at a time:
 ```
 $ python3 unittest -m tests/test_console.py
 ```
-## Bugs
+## Bugs :bomb:
 If you find any bug, please, let us know.
 
-## Styling
+## Styling :page_with_curl:
 All files have been written in the [Pycodestyle](https://github.com/PyCQA/pycodestyle/issues/466).
 
 ## Process :desktop_computer:
