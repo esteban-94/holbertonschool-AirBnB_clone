@@ -17,7 +17,7 @@ The project currently only implements the back-end console and the basic fronted
 
 ## Mockup of the interface
 <p align="center">
-  <img src="https://github.com/esteban-94/holbertonschool-AirBnB_clone/blob/development/Fronted.png" alt="HolbertonBnB logo" height=500>
+  <img src="https://github.com/esteban-94/holbertonschool-AirBnB_clone/blob/development/Fronted.png" alt="HolbertonBnB Mockup" height=500>
 </p>
 
 ## Classes  :hole:
@@ -301,7 +301,7 @@ If you find any bug, please, let us know.
 All files have been written in the [Pycodestyle](https://github.com/PyCQA/pycodestyle/issues/466).
 
 ## Process :desktop_computer:
-If you want to watch the p¡building process, you can type this in your console
+If you want to watch the building process, you can type this in your console
 ```
 git log --all --graph --decorate --oneline
 ```
