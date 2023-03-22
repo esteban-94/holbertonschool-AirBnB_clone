@@ -3,7 +3,7 @@
 In this project, We implemented a <strong>AIRBNB CLONE</strong>.
 
 <p align="center">
-  <img src="https://github.com/esteban-94/holbertonschool-AirBnB_clone/blob/development/HBNBlogo.png" alt="HolbertonBnB logo" height=400>
+  <img src="https://github.com/esteban-94/holbertonschool-AirBnB_clone/blob/development/HBNBlogo.png" alt="HolbertonBnB logo" height=350>
 </p>
 
 
@@ -12,7 +12,13 @@ In this project, We implemented a <strong>AIRBNB CLONE</strong>.
 HolbertonBnB is a complete web application, integrating database storage, 
 a back-end API, and front-end interfacing in a clone of AirBnB.
 
-The project currently only implements the back-end console and the basic fronted. 
+The project currently only implements the back-end console and the basic fronted.
+
+
+## Mockup of the interface
+<p align="center">
+  <img src="https://github.com/esteban-94/holbertonschool-AirBnB_clone/blob/development/Fronted.png" alt="HolbertonBnB logo" height=500>
+</p>
 
 ## Classes  :hole:
 
@@ -293,6 +299,12 @@ If you find any bug, please, let us know.
 
 ## Styling
 All files have been written in the [Pycodestyle](https://github.com/PyCQA/pycodestyle/issues/466).
+
+## Process :desktop_computer:
+If you want to watch the p¡building process, you can type this in your console
+```
+git log --all --graph --decorate --oneline
+```
 
 ## Authors
 * **Obed Rayo** <a href="https://github.com/ObedRav" rel="nofollow"><img align="center" alt="github" src="https://www.vectorlogo.zone/logos/github/github-tile.svg" height="24" /></a>
