@@ -20,6 +20,8 @@ The project currently only implements the back-end console and the basic fronted
   <img src="https://github.com/esteban-94/holbertonschool-AirBnB_clone/blob/development/Fronted.png" alt="HolbertonBnB Mockup" height=500>
 </p>
 
+You can whatch it [here](https://obedrav.github.io/holbertonschool-AirBnB_clone_page/)
+
 ## Classes  :hole:
 
 HolbertonBnB utilizes the following classes:
